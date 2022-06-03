@@ -1,8 +1,7 @@
 <template>
-    <div class="container">
-        <h1 class="my-4">App météo avec vue.js</h1>
+    <div class="container ">
         <div class="form-group mb-5">
-            <label for="postion">Entrez le nom d'une ville</label>
+            <label for="postion" class="text-light">Entrez le nom d'une ville</label>
             <input 
             type="text" 
             id="postion" 
@@ -11,12 +10,19 @@
             v-on:keypress.enter="goMeteo">
             <!-- @keypress.enter="goMeteo"> -->
         </div>
-            <div class="w-75 m-auto" v-if="temps">
+            <!-- <div class="w-75 m-auto" v-if="temps">
                 <h3 class="text-center pb-3">Postion: {{temps.name}} </h3>
-            <div class="card p-5 text-center">
-                <p class="mt-5 text-affichage">Temperature: {{temps.main.temp.toFixe()}}</p>
-                <p class="mb-5">Temps: {{temps.weather[0].description}}</p>
-            </div>
+                <div class="card p-5 text-center">
+                    <p class="mt-5 text-affichage">Temperature: {{temps.main.temp.toFixe()}}</p>
+                    <p class="mb-5">Temps: {{temps.weather[0].description}}</p>
+                </div>
+        </div> -->
+        <div class="w-75 m-auto temps" >
+                <h3 class="text-center text-light pb-3">Postion: Senegal </h3>
+                <div class="card p-5 text-center">
+                    <p class="mt-5 text-affichage">Temperature: 23</p>
+                    <p class="mb-5 text-affichage">Temps: Nuageux</p>
+                </div>
         </div>
     </div>
 </template>
@@ -34,9 +40,8 @@ import axios from 'axios'
             }
         },
         methods: {
-            goMeteo: function(e){
-                if(e.key == 'Enter'){
-
+           
+            goMeteo: function(){
                     axios
                 .get(`${this.api_key}q=${this.requete}&units=metric&APPID=${this.api_url}&lang=fr`)
                 .then(response=>{
@@ -45,13 +50,16 @@ import axios from 'axios'
                 })
                     this.requete=''
                 }
-            }
         }
     }
 </script>
 
 <style scoped>
+.temps{
+visibility: 'hidden';
+}
     .text-affichage{
         font-size: 30px;
     }
+   
 </style>
